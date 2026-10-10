@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | College Admission Portal</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f1f5f9;
+        color: #1e293b;
+      }
+
+      .sidebar {
+        position: fixed;
+        width: 240px;
+        height: 100vh;
+        background: #172554;
+        color: white;
+        padding: 25px 15px;
+        top: 0;
+        left: 0;
+      }
+
+      .sidebar h2 {
+        font-size: 21px;
+        margin: 0 0 30px;
+        text-align: center;
+      }
+
+      .sidebar a {
+        display: block;
+        color: #e2e8f0;
+        text-decoration: none;
+        padding: 13px 15px;
+        border-radius: 7px;
+        margin-bottom: 8px;
+      }
+
+      .sidebar a:hover {
+        background: #2563eb;
+        color: white;
+      }
+
+      .main {
+        margin-left: 240px;
+        padding: 30px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        margin: 0;
+        color: #172554;
+      }
+
+      .header p {
+        color: #64748b;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: white;
+        padding: 23px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid #2563eb;
+      }
+
+      .card h3 {
+        font-size: 14px;
+        color: #64748b;
+        margin: 0 0 15px;
+      }
+
+      .card .number {
+        font-size: 30px;
+        font-weight: bold;
+        color: #172554;
+      }
+
+      .approved {
+        border-left-color: #16a34a;
+      }
+
+      .pending {
+        border-left-color: #f59e0b;
+      }
+
+      .rejected {
+        border-left-color: #dc2626;
+      }
+
+      .documents {
+        border-left-color: #9333ea;
+      }
+
+      .section {
+        background: white;
+        margin-top: 28px;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .section h2 {
+        margin-top: 0;
+        color: #172554;
+      }
+
+      .section a {
+        display: inline-block;
+        background: #2563eb;
+        color: white;
+        text-decoration: none;
+        padding: 12px 18px;
+        margin: 8px 8px 0 0;
+        border-radius: 6px;
+      }
+
+      .section a:hover {
+        background: #1d4ed8;
+      }
+
+      .logout {
+        background: #991b1b;
+        margin-top: 25px;
+      }
+
+      .logout:hover {
+        background: #dc2626 !important;
+      }
+
+      .messages {
+        margin-bottom: 20px;
+      }
+
+      .message {
+        padding: 12px;
+        background: #dcfce7;
+        color: #166534;
+        border-radius: 7px;
+        margin-bottom: 8px;
+      }
+
+      @media (max-width: 1100px) {
+        .cards {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 650px) {
+        .sidebar {
+          position: relative;
+          width: 100%;
+          height: auto;
+        }
+
+        .main {
+          margin-left: 0;
+          padding: 18px;
+        }
+
+        .cards {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <h2>🎓 Admin Portal</h2>
+
+      <a href="{% url 'admin_dashboard' %}">📊 Dashboard</a>
+      <a href="/admin/">⚙️ Django Admin</a>
+      <a href="{% url 'dashboard' %}">👨‍🎓 Student Dashboard</a>
+
+      <a href="{% url 'student_logout' %}" class="logout"> 🚪 Logout </a>
+    </aside>
+
+    <main class="main">
+      <div class="header">
+        <div>
+          <h1>Admin Dashboard</h1>
+          <p>College Admission Management System</p>
+        </div>
+
+        <div>Welcome, {{ request.user.username }}</div>
+      </div>
+
+      {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+        <div class="message">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="cards">
+        <div class="card">
+          <h3>Total Students</h3>
+          <div class="number">{{ total_students }}</div>
+        </div>
+
+        <div class="card">
+          <h3>Total Applications</h3>
+          <div class="number">{{ total_applications }}</div>
+        </div>
+
+        <div class="card approved">
+          <h3>Approved Applications</h3>
+          <div class="number">{{ approved_applications }}</div>
+        </div>
+
+        <div class="card pending">
+          <h3>Pending Applications</h3>
+          <div class="number">{{ pending_applications }}</div>
+        </div>
+
+        <div class="card rejected">
+          <h3>Rejected Applications</h3>
+          <div class="number">{{ rejected_applications }}</div>
+        </div>
+
+        <div class="card">
+          <h3>Total Courses</h3>
+          <div class="number">{{ total_courses }}</div>
+        </div>
+
+        <div class="card documents">
+          <h3>Total Documents</h3>
+          <div class="number">{{ total_documents }}</div>
+        </div>
+
+        <div class="card approved">
+          <h3>Verified Documents</h3>
+          <div class="number">{{ verified_documents }}</div>
+        </div>
+      </div>
+
+      <section class="section">
+        <h2>Quick Actions</h2>
+
+        <a href="/admin/admissions/admissionapplication/">
+          Manage Applications
+        </a>
+
+        <a href="/admin/admissions/course/"> Manage Courses </a>
+
+        <a href="/admin/admissions/studentdocument/"> Manage Documents </a>
+
+        <a href="/admin/auth/user/"> Manage Students </a>
+      </section>
+    </main>
+  </body>
+</html>
