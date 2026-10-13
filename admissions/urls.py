@@ -32,6 +32,27 @@ path(
 ),
 
 path('profile/', views.student_profile, name='student_profile'),
+path('merit-list/', views.merit_list, name='merit_list'),
+path('apply/', views.admission_form, name='admission_form'),
+path(
+    'manage-applications/',
+    views.manage_applications,
+    name='manage_applications'
+),
+path(
+    'manage-applications/<int:application_id>/update-status/',
+    views.update_application_status,
+    name='update_application_status'
+),
+path('manage-documents/', views.manage_documents, name='manage_documents'),
+
+path(
+    'manage-documents/<int:document_id>/update-status/',
+    views.update_document_status,
+    name='update_document_status'
+),
+
+
 
 ]
 if settings.DEBUG:

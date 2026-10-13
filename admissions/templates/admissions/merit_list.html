@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merit List</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 30px;
+        background: #f4f6f9;
+      }
+
+      h1 {
+        text-align: center;
+        color: #17365d;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      th {
+        background: #17365d;
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background: #f2f2f2;
+      }
+
+      .empty {
+        text-align: center;
+        margin-top: 25px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>College Admission Merit List</h1>
+
+    {% if applications %}
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Student</th>
+          <th>Course</th>
+          <th>Marks</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for application in applications %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ application.student.username }}</td>
+          <td>{{ application.course.course_name }}</td>
+          <td>{{ application.marks }}</td>
+          <td>{{ application.status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% else %}
+    <p class="empty">No admission applications are available yet.</p>
+    {% endif %}
+  </body>
+</html>

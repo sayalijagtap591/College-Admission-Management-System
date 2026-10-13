@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Manage Applications | Admin Portal</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 30px;
+        font-family: Arial, sans-serif;
+        background: #f1f5f9;
+        color: #1e293b;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      h1 {
+        color: #172554;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      .back-btn {
+        background: #4f46e5;
+        color: white;
+        padding: 12px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+      }
+
+      .table-container {
+        background: white;
+        padding: 20px;
+        border-radius: 14px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 750px;
+      }
+
+      th,
+      td {
+        padding: 15px 12px;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 13px;
+      }
+
+      th {
+        background: #f8fafc;
+        color: #475569;
+        font-size: 12px;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      .Pending {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .Approved {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .Rejected {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .empty {
+        text-align: center;
+        padding: 35px;
+        color: #64748b;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 15px;
+        }
+
+        .table-container {
+          padding: 10px;
+        }
+      }
+      .action-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .approve-btn,
+      .reject-btn {
+        border: none;
+        padding: 9px 12px;
+        border-radius: 7px;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      .approve-btn {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .approve-btn:hover {
+        background: #16a34a;
+        color: white;
+      }
+
+      .reject-btn {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .reject-btn:hover {
+        background: #dc2626;
+        color: white;
+      }
+
+      .completed {
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      {% if messages %} {% for message in messages %}
+      <div class="message">{{ message }}</div>
+      {% endfor %} {% endif %}
+      <div class="header">
+        <div>
+          <h1>Admission Applications</h1>
+          <p class="subtitle">Review student admission application records.</p>
+        </div>
+
+        <a href="{% url 'admin_dashboard' %}" class="back-btn"> ← Dashboard </a>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <th>Action</th>
+            <tr>
+              <th>ID</th>
+              <th>Student</th>
+              <th>Course</th>
+              <th>Marks</th>
+              <th>Application Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for application in applications %}
+            <tr>
+              <td>{{ application.id }}</td>
+
+              <td>{{ application.student.username }}</td>
+
+              <td>{{ application.course.course_name }}</td>
+
+              <td>{{ application.marks }}</td>
+
+              <td>{{ application.application_date|date:"d M Y" }}</td>
+
+              <td>
+                <span class="status {{ application.status }}">
+                  {{ application.status }}
+                </span>
+              </td>
+
+              <td>
+                {% if application.status == 'Pending' %}
+
+                <div class="action-buttons">
+                  <form
+                    method="POST"
+                    action="{% url 'update_application_status' application.id %}"
+                  >
+                    {% csrf_token %}
+
+                    <input type="hidden" name="status" value="Approved" />
+
+                    <button type="submit" class="approve-btn">✓ Approve</button>
+                  </form>
+
+                  <form
+                    method="POST"
+                    action="{% url 'update_application_status' application.id %}"
+                  >
+                    {% csrf_token %}
+
+                    <input type="hidden" name="status" value="Rejected" />
+
+                    <button type="submit" class="reject-btn">✕ Reject</button>
+                  </form>
+                </div>
+
+                {% else %}
+                <span class="completed">Processed</span>
+                {% endif %}
+              </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+              <td colspan="7" class="empty">
+                No admission applications found.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

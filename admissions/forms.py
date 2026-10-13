@@ -75,7 +75,10 @@ class AdmissionApplicationForm(forms.ModelForm):
 class StudentDocumentForm(forms.ModelForm):
     class Meta:
         model = StudentDocument
-        fields = ['application', 'document_type', 'document']
+        fields = [ 'student_name',
+            'email',
+            'document_type',
+            'document_file',]
 
         widgets = {
             'application': forms.Select(

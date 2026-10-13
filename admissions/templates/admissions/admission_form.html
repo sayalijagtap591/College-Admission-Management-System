@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>College Admission Portal</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", Arial, sans-serif;
+        background: #f3f6fc;
+        color: #17233f;
+        min-height: 100vh;
+      }
+
+      /* Navigation Bar */
+
+      .navbar {
+        background: #ffffff;
+        padding: 18px 7%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 3px 18px rgba(20, 40, 90, 0.06);
+      }
+
+      .logo {
+        font-size: 22px;
+        font-weight: 800;
+        color: #173b70;
+      }
+
+      .logo span {
+        color: #4385f5;
+      }
+
+      .nav-link {
+        color: #173b70;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      /* Hero Section */
+
+      .hero {
+        background: linear-gradient(120deg, #10264f, #2059a5);
+        color: white;
+        padding: 45px 7%;
+      }
+
+      .hero-label {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.14);
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-size: 12px;
+        margin-bottom: 16px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+        margin-bottom: 12px;
+      }
+
+      .hero p {
+        color: #dce8ff;
+        font-size: 15px;
+        line-height: 1.8;
+        max-width: 650px;
+      }
+
+      /* Main Layout */
+
+      .main-container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 35px auto;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 25px;
+        align-items: start;
+      }
+
+      /* Information Card */
+
+      .info-card {
+        background: linear-gradient(160deg, #173b70, #245cb0);
+        color: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 12px 30px rgba(23, 59, 112, 0.12);
+      }
+
+      .info-card h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .info-card > p {
+        color: #dce8ff;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+
+      .benefit {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .benefit h3 {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .benefit p {
+        color: #dce8ff;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      /* Form Card */
+
+      .form-card {
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 18px;
+        box-shadow: 0 8px 35px rgba(30, 50, 90, 0.07);
+      }
+
+      .form-heading {
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e8edf5;
+      }
+
+      .form-heading h2 {
+        font-size: 24px;
+        color: #173b70;
+        margin-bottom: 8px;
+      }
+
+      .form-heading p {
+        color: #7b879b;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .success-message {
+        background: #e7f8ee;
+        border: 1px solid #a9e6bf;
+        color: #176b3a;
+        padding: 18px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+      }
+
+      .success-message h3 {
+        margin-bottom: 8px;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #344563;
+        margin-bottom: 9px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1px solid #dce3ef;
+        border-radius: 9px;
+        background: #fbfcff;
+        font-size: 14px;
+        font-family: inherit;
+        color: #243450;
+        outline: none;
+        transition: 0.2s;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #4385f5;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(67, 133, 245, 0.12);
+      }
+
+      input::placeholder {
+        color: #a0aabc;
+      }
+
+      .submit-btn {
+        width: 100%;
+        margin-top: 25px;
+        padding: 15px;
+        background: linear-gradient(100deg, #245cb0, #4385f5);
+        color: white;
+        border: none;
+        border-radius: 9px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.25s;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(36, 92, 176, 0.22);
+      }
+
+      .privacy-note {
+        margin-top: 15px;
+        text-align: center;
+        color: #8994a8;
+        font-size: 11px;
+        line-height: 1.7;
+      }
+
+      /* Footer */
+
+      footer {
+        text-align: center;
+        padding: 25px 15px;
+        color: #7b879b;
+        font-size: 12px;
+        line-height: 1.8;
+      }
+
+      /* Mobile Responsive */
+
+      @media (max-width: 760px) {
+        .navbar {
+          padding: 17px 5%;
+        }
+
+        .hero {
+          padding: 35px 6%;
+        }
+
+        .hero h1 {
+          font-size: 27px;
+        }
+
+        .main-container {
+          grid-template-columns: 1fr;
+          width: 92%;
+          margin: 25px auto;
+        }
+
+        .info-card {
+          padding: 25px;
+        }
+
+        .form-card {
+          padding: 23px 18px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-group.full-width {
+          grid-column: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="logo">Edu<span>Portal.</span></div>
+      <a href="/" class="nav-link">← Back to Home</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-label">2026–27 ADMISSIONS OPEN</div>
+
+      <h1>Start Your Journey With Us</h1>
+
+      <p>
+        Your future begins with the right education. Complete the admission form
+        below to begin your journey toward academic and professional success.
+      </p>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-container">
+      <!-- Information Section -->
+      <aside class="info-card">
+        <h2>Your Future.<br />Your Opportunity.</h2>
+
+        <p>
+          Take the first step toward your dream career. Submit your details
+          through our online admission portal.
+        </p>
+
+        <div class="benefit">
+          <h3>01. Easy Application</h3>
+          <p>Complete your application online in just a few minutes.</p>
+        </div>
+
+        <div class="benefit">
+          <h3>02. Course Selection</h3>
+          <p>Select your preferred engineering programme.</p>
+        </div>
+
+        <div class="benefit">
+          <h3>03. Application Tracking</h3>
+          <p>Keep your application details available for future reference.</p>
+        </div>
+      </aside>
+
+      <!-- Admission Form -->
+      <section class="form-card">
+        <div class="form-heading">
+          <h2>Admission Application</h2>
+          <p>Please enter your details accurately in the form below.</p>
+        </div>
+
+        {% if success %}
+        <div class="success-message">
+          <h3>✓ Application Submitted Successfully!</h3>
+          <p><strong>Name:</strong> {{ full_name }}</p>
+          <p><strong>Email:</strong> {{ email }}</p>
+          <p><strong>Phone:</strong> {{ phone }}</p>
+          <p><strong>Course:</strong> {{ course }}</p>
+        </div>
+        {% endif %}
+
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="full_name">Full Name *</label>
+              <input
+                type="text"
+                id="full_name"
+                name="full_name"
+                placeholder="Enter your full name"
+                maxlength="100"
+                autocomplete="name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter phone number"
+                maxlength="15"
+                autocomplete="tel"
+                required
+              />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="course">Preferred Course *</label>
+              <select id="course" name="course" required>
+                <option value="">Select your preferred course</option>
+                <option value="Computer Engineering">
+                  Computer Engineering
+                </option>
+                <option value="Mechanical Engineering">
+                  Mechanical Engineering
+                </option>
+                <option value="Civil Engineering">Civil Engineering</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Application →</button>
+
+          <p class="privacy-note">
+            Please verify your details before submitting your application.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>College Admission Management System © 2026</p>
+      <p>Designed for a simple and convenient admission experience.</p>
+    </footer>
+  </body>
+</html>
