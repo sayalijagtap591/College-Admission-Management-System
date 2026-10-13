@@ -1,74 +1,95 @@
-College Admission Management System
+🎓 College Admission Management System
 
-Project Overview
+📌 Project Overview
 
-The College Admission Management System is a web-based application developed using Django and Python. It helps students apply for college admission and allows administrators to manage admission applications and student documents.
+The College Admission Management System is a web-based application developed using Python and Django. It aims to simplify the college admission process by providing online application submission, document upload, course information, and admission status tracking.
 
-Technologies Used
+🎯 Objectives
+
+- Simplify the college admission process.
+- Manage student information and admission applications.
+- Allow students to upload required documents.
+- Help administrators review applications and verify documents.
+- Maintain admission-related records in a database.
+
+🛠️ Technologies Used
 
 - Python
 - Django
 - HTML
 - CSS
 - JavaScript
-- SQLite
+- MySQL
 
-Features
+✨ Key Features
 
-- Student Registration and Login
-- Student Dashboard
-- Course Listing
-- Online Admission Application
-- Student Document Upload
-- Student Profile Management
-- Admin Dashboard
-- Admission Application Status Management
-- Document Verification
-- Secure Logout and Login Protection
+- Student registration and login
+- Course listing and information
+- Online admission applications
+- Student dashboard
+- Document upload
+- Admin dashboard
+- Application status management
+- Document verification
+- Application search and filtering
 
-Installation and Setup
+Note: Features may depend on the current implementation of the project.
+
+⚙️ Installation and Setup
 
 1. Clone the Repository
 
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/sayalijagtap591/College-Admission-Management-System.git
 
 2. Open the Project Folder
 
-cd admission_portal
+cd College-Admission-Management-System
 
-3. Install Dependencies
+3. Create a Virtual Environment
 
-python -m pip install -r requirements.txt
+python -m venv venv
 
-4. Apply Database Migrations
+4. Activate the Virtual Environment
+
+Windows PowerShell:
+
+.\venv\Scripts\Activate.ps1
+
+5. Install Dependencies
+
+If a "requirements.txt" file exists:
+
+pip install -r requirements.txt
+
+Otherwise, install Django and the required MySQL database driver according to your project configuration.
+
+6. Configure the Environment
+
+Set the required environment variables, including "DJANGO_SECRET_KEY", and configure the MySQL database credentials. Do not commit passwords or secret keys to GitHub.
+
+7. Run Database Migrations
 
 python manage.py migrate
 
-5. Create an Administrator Account
-
-python manage.py createsuperuser
-
-Follow the prompts to create your administrator account.
-
-6. Run the Development Server
+8. Start the Development Server
 
 python manage.py runserver
 
-Open the application in your browser:
+Open the following address in your browser:
 
 http://127.0.0.1:8000/
 
-Admin Panel
+🎓 Learning Outcomes
 
-http://127.0.0.1:8000/admin/
+This project provides practical experience in Python programming, Django web development, database integration, authentication, file uploads, frontend design, and application testing.
 
-Project Purpose
+👩‍💻 Author
 
-This project demonstrates web application development using Django, database management, user authentication, admission application processing, and document verification.
+Sayali Jagtap
+Student ID: DAS011173
+Domain: Python Full Stack Development
+Internship ID: 5125
 
-Future Enhancements
+📄 License
 
-- Email notifications for admission status updates
-- Advanced search and filtering
-- Admission reports and analytics
-- Improved responsive user interface
+This project is intended for educational and portfolio purposes.
